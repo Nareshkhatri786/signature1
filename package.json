@@ -1,0 +1,59 @@
+{
+  "name": "signature-properties-crm",
+  "version": "1.0.0",
+  "description": "Complete Pre-Sales CRM for Real Estate with WhatsApp Integration",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "format": "prettier --write .",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "lucide-react": "^0.263.1",
+    "recharts": "^2.8.0",
+    "date-fns": "^2.30.0",
+    "clsx": "^2.0.0",
+    "tailwind-merge": "^1.14.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.15",
+    "@types/react-dom": "^18.2.7",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "@vitejs/plugin-react": "^4.0.3",
+    "autoprefixer": "^10.4.14",
+    "eslint": "^8.45.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.3",
+    "postcss": "^8.4.27",
+    "prettier": "^3.0.0",
+    "tailwindcss": "^4.0.0-alpha.4",
+    "typescript": "^5.0.2",
+    "vite": "^4.4.5"
+  },
+  "keywords": [
+    "crm",
+    "real-estate",
+    "pre-sales",
+    "whatsapp",
+    "leads",
+    "opportunities",
+    "react",
+    "typescript"
+  ],
+  "author": "Signature Properties",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/signature-properties/crm.git"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
