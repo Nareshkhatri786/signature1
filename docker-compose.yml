@@ -8,13 +8,11 @@ services:
     environment:
       POSTGRES_DB: signature_crm
       POSTGRES_USER: crm_user
-      POSTGRES_PASSWORD: ${DB_PASSWORD:-signature_crm_password_2024}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
       POSTGRES_INITDB_ARGS: "--encoding=UTF-8 --lc-collate=C --lc-ctype=C"
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./logs:/var/log/postgresql
-    ports:
-      - "5432:5432"
     networks:
       - crm-network
     healthcheck:
@@ -38,17 +36,14 @@ services:
       DB_PORT: 5432
       DB_NAME: signature_crm
       DB_USER: crm_user
-      DB_PASSWORD: ${DB_PASSWORD:-signature_crm_password_2024}
-      JWT_SECRET: ${JWT_SECRET:-default_jwt_secret_change_in_production}
-      CORS_ORIGIN: ${CORS_ORIGIN:-http://localhost}
+      DB_PASSWORD: ${DB_PASSWORD}
+      JWT_SECRET: ${JWT_SECRET}
+      CORS_ORIGIN: ${CORS_ORIGIN}
       PORT: 3001
-    ports:
-      - "3001:3001"
     volumes:
       - ./server/logs:/app/logs
       - ./server/uploads:/app/uploads
-      - ./server/.env:/app/.env
-      - ./server/.install-lock:/app/.install-lock
+      - ./.env:/app/.env
     networks:
       - crm-network
     healthcheck:
@@ -64,10 +59,9 @@ services:
     container_name: signature-crm-frontend
     restart: unless-stopped
     depends_on:
-      backend:
-        condition: service_healthy
+      - backend
     environment:
-      REACT_APP_API_URL: ${REACT_APP_API_URL:-http://localhost/api}
+      REACT_APP_API_URL: ${REACT_APP_API_URL}
       REACT_APP_ENVIRONMENT: production
     volumes:
       - frontend_build:/app/build
@@ -82,8 +76,10 @@ services:
       - backend
       - frontend
     ports:
-      - "80:80"
-      - "443:443"
+      # HTTP access will be on port 30080
+      - "30080:80"
+      # HTTPS access will be on port 30443 (if you set up SSL)
+      - "30443:443"
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
       - ./ssl:/etc/nginx/ssl:ro
@@ -91,11 +87,6 @@ services:
       - frontend_build:/usr/share/nginx/html:ro
     networks:
       - crm-network
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost/api/health"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
 
 volumes:
   postgres_data:
